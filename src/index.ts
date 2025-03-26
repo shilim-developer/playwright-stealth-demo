@@ -26,7 +26,7 @@ async function initPlaywright() {
 // 启动无头playwright
 async function initPlaywrightHeadless() {
   const browser = await playwright.chromium.launch({
-    headless: true,
+    args: ['--headless=new', '--lang=zh-CN,zh'],
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -40,13 +40,17 @@ initPlaywright();
 initPlaywrightHeadless();
 
 // 使用stealth
-const stealth = Stealth();
-chromium.use(stealth);
+const stealthPlugin = Stealth();
+stealthPlugin.enabledEvasions.delete('navigator.languages');
+console.log(stealthPlugin.enabledEvasions);
+
+chromium.use(stealthPlugin);
 
 // 启动playwright
 async function initPlaywrightStealth() {
   const browser = await chromium.launch({
     headless: false,
+    // args: ['--headless=new','--lang=zh-CN,zh'],
   });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -59,7 +63,8 @@ async function initPlaywrightStealth() {
 // 启动无头playwright
 async function initPlaywrightHeadlessStealth() {
   const browser = await chromium.launch({
-    headless: true,
+    // headless: true,
+    args: ['--headless=new'],
   });
   const context = await browser.newContext();
   const page = await context.newPage();
