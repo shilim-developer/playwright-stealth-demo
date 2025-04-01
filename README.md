@@ -39,3 +39,5 @@ await page.goto('https://bot.sannysoft.com');
 
 无头模式：
 ![playwright-headless-stealth](./playwright-headless-stealth.png)
+
+可以看到，使用了 stealth 插件后，红色差异已经消失。但是，并不是用了就可以高枕无忧了，这是一场猫和老鼠的游戏
